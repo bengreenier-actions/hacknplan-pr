@@ -1,0 +1,27 @@
+name: 'hacknplan-pr'
+description: 'A GitHub Action to show hacknplan workitems in PR comments'
+inputs:
+  ghToken:
+    description: 'GitHub access token. You probably want to pass this secrets.GH_TOKEN'
+    required: true
+  apiKey:
+    description: 'Hacknplan API Key to authenticate with'
+    required: true
+  projectId:
+    description: 'Hacknplan Project Id'
+    required: true
+  projectClosedStage:
+    description: 'Hacknplan name for workitem closed stage'
+    default: 'Completed'
+  messagePrefix:
+    description: 'Prefix developers use to indicate hacknplan workitems'
+    default: 'HAP#\s{0,}([0-9]+)'
+  closePrefix:
+    description: 'Comma separated list of prefixes developers use to indicate an item should be closed'
+    default: 'fixes, closes, close'
+outputs:
+  commentId:
+    description: 'The id of the created comment, if any'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

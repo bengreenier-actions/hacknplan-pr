@@ -1,0 +1,31 @@
+{
+  "name": "hacknplan-pr",
+  "version": "1.0.0",
+  "description": "A GitHub Action to show hacknplan workitems in PR comments",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bengreenier-actions/hacknplan-pr.git"
+  },
+  "author": "Ben Greenier",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bengreenier-actions/hacknplan-pr/issues"
+  },
+  "homepage": "https://github.com/bengreenier-actions/hacknplan-pr#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.7",
+    "@actions/github": "^4.0.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/request": "^2.48.5",
+    "@vercel/ncc": "^0.28.5",
+    "jest": "^26.6.3"
+  }
+}
