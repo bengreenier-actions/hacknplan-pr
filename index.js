@@ -3,6 +3,12 @@ const github = require("@actions/github");
 const { execute } = require("./src/workflow");
 
 (async () => {
+  if (github.context.eventName !== "pull_request") {
+    throw new Error(
+      `Invalid eventName ${github.context.eventName}, expected pull_request.`
+    );
+  }
+
   const commentId = await execute({
     ghToken: core.getInput("ghToken", { required: true }),
     ghOwner: github.context.repo.owner,

@@ -39104,6 +39104,12 @@ const github = __nccwpck_require__(5438);
 const { execute } = __nccwpck_require__(2878);
 
 (async () => {
+  if (github.context.eventName !== "pull_request") {
+    throw new Error(
+      `Invalid eventName ${github.context.eventName}, expected pull_request.`
+    );
+  }
+
   const commentId = await execute({
     ghToken: core.getInput("ghToken", { required: true }),
     ghOwner: github.context.repo.owner,
