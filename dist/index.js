@@ -38673,6 +38673,10 @@ const execute = async ({
   logger(`Closed Stage '${closedStage.name}' = '${closedStage.stageId}'`);
 
   const closedStageId = closedStage.stageId;
+  const allItemIds = items.map((i) => i.workItems).flat();
+
+  logger(`Found ${allItemIds.length} HAP items`);
+
   const shouldCloseItems =
     ghEventPayload.action === "closed" && ghEventPayload.merged === true;
 
@@ -38685,11 +38689,17 @@ const execute = async ({
 
     logger(`Merge detected, closing items if needed`);
     await Promise.all(closeProms);
+
+    const commentProms = allItemIds.map((item) =>
+      hap.addHAPWorkItemComment(
+        item,
+        `See https://github.com/${ghOwner}/${ghRepo}/pulls/${ghPullNumber}`
+      )
+    );
+
+    logger(`Merge detected, commenting in HAP if needed`);
+    await Promise.all(commentProms);
   }
-
-  const allItemIds = items.map((i) => i.workItems).flat();
-
-  logger(`Found ${allItemIds.length} HAP items`);
 
   const allItems = await Promise.all(
     allItemIds.map((id) => hap.getHAPWorkItem(id))
