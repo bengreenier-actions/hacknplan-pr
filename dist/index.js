@@ -39116,7 +39116,7 @@ const { execute } = __nccwpck_require__(2878);
     messagePrefix: core.getInput("messagePrefix"),
     closePrefix: core.getInput("closePrefix"),
     logger: function (msg) {
-      core.info(message);
+      core.info(msg);
     },
   });
 
